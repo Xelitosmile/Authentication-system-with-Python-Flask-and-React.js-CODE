@@ -5,3 +5,8 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+.formulario {
+  width: 1000px;
+  padding-left: 500px;
+  padding-top: 80px;
+}
