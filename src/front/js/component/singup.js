@@ -2,19 +2,21 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 
-export const Login = () => {
+export const Signup_Form = () => {
   const { store, actions } = useContext(Context);
-  const [login_email, setEmail] = useState("");
-  const [login_password, setPassword] = useState("");
+  const [signup_email, setEmail] = useState("");
+  const [signup_password, setPassword] = useState("");
+
   return (
     <form>
+      <h1>Create your account !!!</h1>
       <div className="mb-3">
         <label className="form-label">Email address</label>
         <input
           type="email"
           className="form-control"
           onChange={(e) => setEmail(e.target.value)}
-          value={login_email}
+          value={signup_email}
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="email@e-mail.com"
@@ -29,7 +31,7 @@ export const Login = () => {
           type="password"
           className="form-control"
           onChange={(e) => setPassword(e.target.value)}
-          value={login_password}
+          value={signup_password}
           id="exampleInputPassword1"
           placeholder="password"
         />
@@ -38,22 +40,12 @@ export const Login = () => {
       <button
         type="submit"
         className="btn btn-primary"
-        onClick={(e) => {
-          e.preventDefault();
-          actions.login_func(login_email, login_password);
+        onClick={() => {
+          actions.signup_func(signup_email, signup_password);
         }}
       >
-        Login!
+        Submit
       </button>
-      <div className="d-flex gap-1 justify-content-center mt-1">
-        <div style={{ color: "red" }}>Dont have a account?</div>
-        <Link to="/singup">
-          <a href="" className="text-decoration-none fw-semibold">
-            {" "}
-            Register
-          </a>
-        </Link>
-      </div>
     </form>
   );
 };

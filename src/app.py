@@ -93,7 +93,7 @@ def login():
     if (one is None):
         return "El usuario no existe o su clave es incorrecta"
     else:
-        expiracion = datetime.timedelta(seconds=60)
+        expiracion = datetime.timedelta(seconds=6000000)
         acceso = create_access_token(identity=body['email'] , expires_delta=expiracion)
         return{
             "Login": "ok",
@@ -101,13 +101,18 @@ def login():
             "tiempo": expiracion.total_seconds()
         }
 
-@app.route('/profile', methods=['GET']) #Validación de token
+@app.route ('/private', methods = ['GET'])
 @jwt_required()
-def profile():
+def private ():
     identidad = get_jwt_identity()
-    return "tienes permiso " + identidad
+    usuario = User.query.filter_by(email = identidad).first()
+    if (usuario):
+        print("usuario encontrado")
+        return jsonify({"success": "ok", "usuario": identidad})
+    else:
+        return jsonify({"success": "not", "message": "usuario no existe"})
 
-  
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
